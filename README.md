@@ -56,19 +56,26 @@ sudo apt-get install ssh
 Type apache hadoop in google then go to downloads and download hadoop-3.2.4 binary file
 
 Extract the file 
+
 tar -zxvf ~/Downloads/hadoop-3.2.4.tar.gz
 
 ## Step 5: Check hadoop installed or not
 cd hadoop-3.2.4
+
 ls /etc/hadoop
+
 it will display hadoop files
 
 ## Step 6: Set JAVA_HOME in hadoop-env.sh
 sudo nano hadoop-env.h
+
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
+
 ## Step 7: update core-site.xml
+
 sudo nano core-site.xml
+
 <configuration> 
  <property> 
  <name>fs.defaultFS</name> 
