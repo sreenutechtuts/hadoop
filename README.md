@@ -1,7 +1,7 @@
-Hadoop Installation
+# Hadoop Installation
 
 
-Step 1: Install Java 8
+## Step 1: Install Java 8
 
 sudo apt install openjdk-8-jdk
 
@@ -14,7 +14,8 @@ cd /usr/lib/jvm
 then
 ls
 
-Step 2: Update .bashrc
+
+## Step 2: Update .bashrc
 
 type cd and enter to come to the root folder
 
@@ -32,29 +33,29 @@ export HADOOP_STREAMING=$HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.2
 export HADOOP_LOG_DIR=$HADOOP_HOME/logs 
 export PDSH_RCMD_TYPE=ssh
 
-Step 3: Install ssh
+## Step 3: Install ssh
 
 ssh — secure shell — protocol used to securely connect to remote server/system — transfers data in encrypted form
 
 sudo apt-get install ssh
 
-Step 4: Download apache hadoop
+## Step 4: Download apache hadoop
 
 Type apache hadoop in google then go to downloads and download hadoop-3.2.4 binary file
 
 Extract the file 
 tar -zxvf ~/Downloads/hadoop-3.2.4.tar.gz
 
-Step 5: Check hadoop installed or not
+## Step 5: Check hadoop installed or not
 cd hadoop-3.2.4
 ls /etc/hadoop
 it will display hadoop files
 
-Step 6: Set JAVA_HOME in hadoop-env.sh
+## Step 6: Set JAVA_HOME in hadoop-env.sh
 sudo nano hadoop-env.h
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-Step 7: update core-site.xml
+## Step 7: update core-site.xml
 sudo nano core-site.xml
 <configuration> 
  <property> 
@@ -74,7 +75,7 @@ sudo nano core-site.xml
  </property> 
 </configuration>
 
-Step 8: update hdfs-site.xml
+## Step 8: update hdfs-site.xml
 
 sudo nano hdfs-site.xml
 
@@ -85,7 +86,7 @@ sudo nano hdfs-site.xml
  </property> 
 </configuration>
 
-Step 9: update mapred-site.xml
+## Step 9: update mapred-site.xml
 
 sudo nano mapred-site.xml
 
@@ -101,7 +102,7 @@ sudo nano mapred-site.xml
 </configuration>
 
 
-Step 10: Update yarn-site.xml
+## Step 10: Update yarn-site.xml
 
 sudo nano yarn-site.xml
 
@@ -118,7 +119,7 @@ sudo nano yarn-site.xml
 </configuration>
 
 
-Step 11: Execute below commands for ssh
+## Step 11: Execute below commands for ssh
 
 ssh localhost 
 ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa 
@@ -133,16 +134,17 @@ hadoop-3.2.4/bin/hdfs namenode -format
 format the file system
 export PDSH_RCMD_TYPE=ssh
 
-Step 12: Start hadoop
+## Step 12: Start hadoop
 start-all.sh
 
-Step 13: open http://localhost:9870
+## Step 13: open http://localhost:9870
 
 hadoop fs -mkdir /user
 hadoop fs mkdire /user/sreenu
 touch demo.csv
 hadoop fs -put demo.csv /user/sreenu
-Step 14: Stop hadoop 
+
+## Step 14: Stop hadoop 
 
 stop-all.sh
 
