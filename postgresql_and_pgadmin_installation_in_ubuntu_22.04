@@ -1,0 +1,90 @@
+PostgreSQL installation:
+
+Step 1: check os version
+
+lsb_release -a 
+
+Step 2: update
+
+sudo apt update
+
+
+Step 3: apt install postgresql -y
+
+sudo apt install postgresql postgresql-contrib
+
+
+Step 4: check running or not
+
+systemctl start postgresql.service
+
+systemctl status postgresql.service ---> it will display service is active or not active
+
+
+Step 5: Enable postgresql
+
+systemctl enable postgresql.service
+
+
+Step 6: Connect/access postgres
+
+sudo -i -u postgres
+
+psql
+
+
+Step 7: create user and database
+
+create user demouser with password ‘1234’;
+
+create database demodb;
+
+Step 8: 
+
+grant all privileges on database demodb to demouser;
+
+
+Step 9: exit from postgre
+
+\q then press enter
+
+then
+
+exit;
+
+
+
+pgAdmin4 installation:
+
+Step 1: Add public GPG key
+
+curl -fsSL https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pgadmin.gpg
+
+
+Step 2: Add pgAdmin 4 repository
+
+
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list'
+
+Step 3: Update ubuntu 22.04
+
+sudo apt update && sudo apt upgrade
+
+
+Step 4: Install pgAdmin4
+
+Desktop
+sudo apt install pgadmin4-desktop
+
+Web
+sudo apt install pgadmin4-web
+
+Both Desktop & Web
+sudo apt install pgadmin4
+
+
+Step 5: Configure the pgAdmin user account
+
+sudo /usr/pgadmin4/bin/setup-web.sh
+
+http://your-server-ip-address/pgadmin4
