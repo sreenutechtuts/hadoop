@@ -1,0 +1,105 @@
+Hive Installation using Postgres as Metastore
+
+Step 2 : Download Hive tar and extract
+
+
+Step 3 : Edit the “.bashrc” file to update environment variables for user
+sudo nano .bashrc
+
+vi ~/.bashrc
+export HIVE_HOME=/home/welcome/apache-hive-3.1.2-bin
+export PATH=$PATH:/home/welcome/apache-hive-3.1.2-bin/bin
+
+#Run below command to make the changes work in same terminal.
+source .bashrc
+Step 4: Create Hive directories within Hadoop File System. The directory ‘warehouse’ is the location to store the table or data related to hive.
+Command:
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -mkdir /tmp
+
+#CHECK OLD PERMISSION
+hdfs dfs -ls /user/hive/
+
+
+#GIVE WRITE PERMISSION TO NEW DIRECTORY
+hdfs dfs -chmod g+w /user/hive/warehouse
+hdfs dfs -chmod g+w /tmp
+
+#CHECK NEW PERMISSION
+hdfs dfs -ls /user/hive/
+
+Step 5: Set Hadoop path in hive-env.sh
+In this file we will set HADOOP_HOME path and Hive conf(hive-env.sh) file path
+export HADOOP_HOME=~/hadoop-3.2.4/ 
+
+Step 6: Create hive metastore db in postgres
+
+su - postgres
+$ createdb -h localhost -p 5432 -U postgres --password hivemetastoredb
+
+Step 7: Create hive-site.xml and configure as below
+
+apache-hive-3.1.2-bin/conf/hive-site.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+<name>hive.metastore.local</name>
+<value>true</value>
+</property>
+<property>
+<name>hive.metastore.warehouse.dir</name>
+<value>/user/hive/warehouse</value>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionDriverName</name>
+<value>org.postgresql.Driver</value>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionURL</name>
+<value>jdbc:postgresql://localhost:5432/hivemetastoredb</value>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionUserName</name>
+<value>hiveuser</value>
+</property>
+<property>
+<name>javax.jdo.option.ConnectionPassword</name>
+<value>welcome</value>
+</property>
+<property>
+        <name>org.jpox.autoCreateSchema</name>
+        <value>true</value>
+</property>
+<property>
+<name>hive.server2.thrift.port</name>
+<value>10000</value>
+</property>
+<property>
+<name>hive.server2.enable.doAs</name>
+<value>true</value>
+</property>
+<property>
+<name>hive.execution.engine</name>
+<value>mr</value>
+</property>
+<property>
+<name>hive.metastore.port</name>
+<value>9083</value>
+</property>
+<property>
+<name>mapreduce.input.fileinputformat.input.dir.recursive</name>
+<value>true</value>
+</property>
+</configuration>
+
+Step 8: Create Hive schema (PostgreSQL) 
+Schematool utility given in hive downloaded directory under bin location. This will auto create required schema, tables, functions etc in the hivemetastoredb database.
+~/apache-hive-3.1.2-bin/bin/schematool -initSchema -dbType postgres 
+                             OR
+~$schematool -initSchema -dbType postgres
+
+Step 10: Launch Hive
+We can start hive by many ways direct cli without starting hiveserver2 and hivemetastore.
+a) simple hive shell command
+hive
