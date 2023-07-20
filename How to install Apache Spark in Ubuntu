@@ -1,0 +1,49 @@
+
+
+Step 1 - Update the System
+Before starting, you need to update and upgrade all system packages to the latest version. You update all of them by running the following command:
+
+sudo apt update
+sudo apt upgrade
+
+Step 2 - Install Java JDK
+java -version
+
+
+Step 3 - Install Scala
+
+sudo apt-get install scala -y
+scala -version
+
+scala
+println("Welcome to Scala")
+
+
+Step 4 - Install Apache Spark
+
+cd ~/Downloads
+sudo wget https://archive.apache.org/dist/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
+
+tar -xvzf spark-3.3.1-bin-hadoop3.tgz
+
+mv spark-3.3.1-bin-hadoop3 /home/welcome/spark
+
+
+Step 5 - Start Apache Spark
+nano ~/.bashrc
+
+export SPARK_HOME=/home/welcome/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+
+Save and close the file then reload the environment variable with the following command.
+source ~/.bashrc
+
+
+Step 6 – Start and Stop Apache Spark
+start-master.sh
+
+stop-master.sh
+
+
+
